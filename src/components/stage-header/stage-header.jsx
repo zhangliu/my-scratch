@@ -2,8 +2,9 @@ import classNames from 'classnames';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import PropTypes from 'prop-types';
 import React from 'react';
-import VM from 'scratch-vm';
+import VM from 'scratch-vm'; 
 
+import MqPlayer from '../mq-player/index.jsx';
 import Box from '../box/box.jsx';
 import Button from '../button/button.jsx';
 import {ComingSoonTooltip} from '../coming-soon/coming-soon.jsx';
@@ -81,7 +82,10 @@ const StageHeaderComponent = function (props) {
         header = (
             <Box className={styles.stageHeaderWrapper}>
                 <Box className={styles.stageMenuWrapper}>
-                    <Controls vm={vm} />
+                    <div style={{display: 'inline-flex'}}>
+                        <MqPlayer />
+                        <Controls vm={vm} />
+                    </div>
                     <div className={styles.stageSizeRow}>
                         <div className={styles.stageSizeToggleGroup}>
                             <ComingSoonTooltip
