@@ -38,7 +38,19 @@
     background-color: $ui-modal-overlay;
 }
 
+.modal-close {
+    position: absolute;
+    top:0;
+    right: 0;
+    padding: 6px;
+    z-index: 1001;
+    cursor: pointer;
+    /* border-radius: 2rem;
+    background: #fff; */
+}
+
 .mq-modal-content {
+    position: relative;
     margin: 100px auto;
     outline: none;
     border: .25rem solid $ui-white-transparent;
