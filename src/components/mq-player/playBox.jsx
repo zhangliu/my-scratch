@@ -9,13 +9,13 @@ import styles from './index.css';
 export default class MyComponent extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { isOpen: props.showPlayBox }
+        this.state = { isOpen: true} // props.showPlayBox }
     }
 
     componentDidMount() {
         if (this.player) return this.player.play()
         const videoJsOptions = {
-            // autoplay: true,
+            autoplay: true,
             controls: true,
             sources: [{
                 src: 'http://www.codingmarch.com/statics/video/trylesson.mp4',
@@ -49,16 +49,16 @@ export default class MyComponent extends React.Component {
 
     hide() {
         this.player.pause();
+        this.isPlay = false;
         this.setState({isOpen: false});
     }
 
     render() {
         const isOpen = this.state.isOpen
         return (
-            <div
-                className={isOpen ? styles.mqModalOverlay : styles.mqModalOverlayHidden}
-                onClick={() => this.hide()}>
+            <div className={isOpen ? styles.mqModalOverlay : styles.mqModalOverlayHidden}>
                 <div className={styles.mqModalContent}>
+                    <div className={styles.modalClose} onClick={() => this.hide()}>X</div>
                     <div data-vjs-player>
                         <video
                             className={styles.mqVideoJs}
