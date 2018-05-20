@@ -5,6 +5,7 @@ import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import VM from 'scratch-vm';
 
 import analytics from '../lib/analytics';
+import config from '../config.js';
 import costumeLibraryContent from '../lib/libraries/costumes.json';
 import spriteTags from '../lib/libraries/sprite-tags';
 import LibraryComponent from '../components/library/library.jsx';
@@ -24,6 +25,16 @@ class CostumeLibrary extends React.PureComponent {
         bindAll(this, [
             'handleItemSelected'
         ]);
+        this.state = {costumes: []};
+    }
+    componentWillMount () {
+        const id = window.location.hash.substring(1);
+        if (!id) return this.setState({costumes: costumeLibraryContent});
+        fetch(`${config.services.costumeService}/${id}`)
+            .then(res => res.json())
+            .then(content => {
+                this.setState({costumes: content});
+            });
     }
     handleItemSelected (item) {
         const vmCostume = {
@@ -43,7 +54,7 @@ class CostumeLibrary extends React.PureComponent {
     render () {
         return (
             <LibraryComponent
-                data={costumeLibraryContent}
+                data={this.state.costumes}
                 id="costumeLibrary"
                 tags={spriteTags}
                 title={this.props.intl.formatMessage(messages.libraryTitle)}

@@ -5,6 +5,7 @@ import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import VM from 'scratch-vm';
 
 import analytics from '../lib/analytics';
+import config from '../config.js';
 import backdropLibraryContent from '../lib/libraries/backdrops.json';
 import backdropTags from '../lib/libraries/backdrop-tags';
 import LibraryComponent from '../components/library/library.jsx';
@@ -24,6 +25,16 @@ class BackdropLibrary extends React.Component {
         bindAll(this, [
             'handleItemSelect'
         ]);
+        this.state = {backdrops: []};
+    }
+    componentWillMount () {
+        const id = window.location.hash.substring(1);
+        if (!id) return this.setState({backdrops: backdropLibraryContent});
+        fetch(`${config.services.backdropService}/${id}`)
+            .then(res => res.json())
+            .then(content => {
+                this.setState({backdrops: content});
+            });
     }
     handleItemSelect (item) {
         const vmBackdrop = {
@@ -43,7 +54,7 @@ class BackdropLibrary extends React.Component {
     render () {
         return (
             <LibraryComponent
-                data={backdropLibraryContent}
+                data={this.state.backdrops}
                 id="backdropLibrary"
                 tags={backdropTags}
                 title={this.props.intl.formatMessage(messages.libraryTitle)}

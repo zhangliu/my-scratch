@@ -10,6 +10,7 @@ import LibraryComponent from '../components/library/library.jsx';
 
 import soundIcon from '../components/asset-panel/icon--sound.svg';
 
+import config from '../config.js';
 import soundLibraryContent from '../lib/libraries/sounds.json';
 import soundTags from '../lib/libraries/sound-tags';
 
@@ -29,6 +30,16 @@ class SoundLibrary extends React.PureComponent {
             'handleItemMouseEnter',
             'handleItemMouseLeave'
         ]);
+        this.state = {sounds: []};
+    }
+    componentWillMount () {
+        const id = window.location.hash.substring(1);
+        if (!id) return this.setState({sounds: soundLibraryContent});
+        fetch(`${config.services.soundService}/${id}`)
+            .then(res => res.json())
+            .then(content => {
+                this.setState({sounds: content});
+            });
     }
     componentDidMount () {
         this.audioEngine = new AudioEngine();
@@ -78,7 +89,7 @@ class SoundLibrary extends React.PureComponent {
     }
     render () {
         // @todo need to use this hack to avoid library using md5 for image
-        const soundLibraryThumbnailData = soundLibraryContent.map(sound => {
+        const soundLibraryThumbnailData = this.state.sounds.map(sound => {
             const {
                 md5,
                 ...otherData

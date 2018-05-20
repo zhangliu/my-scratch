@@ -5,6 +5,7 @@ import {injectIntl, intlShape, defineMessages} from 'react-intl';
 import VM from 'scratch-vm';
 
 import analytics from '../lib/analytics';
+import config from '../config.js';
 import spriteLibraryContent from '../lib/libraries/sprites.json';
 import spriteTags from '../lib/libraries/sprite-tags';
 
@@ -32,8 +33,17 @@ class SpriteLibrary extends React.PureComponent {
         this.state = {
             activeSprite: null,
             costumeIndex: 0,
-            sprites: spriteLibraryContent
+            sprites: []
         };
+    }
+    componentWillMount () {
+        const id = window.location.hash.substring(1);
+        if (!id) return this.setState({sprites: spriteLibraryContent});
+        fetch(`${config.services.spritesService}/${id}`)
+            .then(res => res.json())
+            .then(content => {
+                this.setState({sprites: content});
+            });
     }
     componentWillUnmount () {
         clearInterval(this.intervalId);

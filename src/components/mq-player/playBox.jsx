@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactModal from 'react-modal';
 import Box from '../box/box.jsx';
+import config from '../../config';
 // import videojs from 'video.js';
 
 // see https://segmentfault.com/a/1190000007603266
@@ -12,50 +13,55 @@ import Box from '../box/box.jsx';
 import styles from './index.css';
 
 export default class MyComponent extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { isOpen: true } // props.showPlayBox }
+    constructor (props) {
+        super(props);
+        this.state = {isOpen: true}; // props.showPlayBox }
     }
 
-    componentWillReceiveProps(props) {
-        if (props.isOpen) this.player.play()
-        this.setState({isOpen: props.isOpen})
+    componentWillReceiveProps (props) {
+        if (props.isOpen) this.player.play();
+        this.setState({isOpen: props.isOpen});
     }
 
-    componentDidMount() {
+    componentDidMount () {
         this.player.play();
     }
 
     // destroy player on unmount
-    componentWillUnmount() {
+    componentWillUnmount () {
         if (this.player) {
             this.player.dispose();
         }
     }
 
-    handVideoClick() {
-        if (this.player.paused) return this.player.play()
-        this.player.pause()
+    handVideoClick () {
+        if (this.player.paused) return this.player.play();
+        this.player.pause();
     }
 
-    show() {
+    show () {
         this.setState({isOpen: true});
     }
 
-    hide() {
+    hide () {
         this.player.pause();
         this.isPlay = false;
         this.setState({isOpen: false});
     }
 
-    render() {
-        const isOpen = this.state.isOpen
+    render () {
+        const isOpen = this.state.isOpen;
+        const id = window.location.hash.substring(1);
+        const url = id ? `${config.services.videoService}/${id}` : 'http://www.codingmarch.com/statics/video/trylesson.mp4';
         return (
             <div className={isOpen ? styles.mqModalOverlay : styles.mqModalOverlayHidden}>
                 <div className={styles.mqModalContent}>
-                    <div className={styles.modalClose} onClick={() => this.hide()}>X</div>
+                    <div
+                        className={styles.modalClose}
+                        onClick={() => this.hide()}
+                    >X</div>
                     <video
-                        src='http://www.codingmarch.com/statics/video/trylesson.mp4'
+                        src={url}
                         controls
                         onClick={this.handVideoClick.bind(this)}
                         ref={node => this.player = node}
@@ -65,6 +71,6 @@ export default class MyComponent extends React.Component {
                     </video>
                 </div>
             </div>
-        )
+        );
     }
 }

@@ -7,17 +7,17 @@ import MqPlayBox from './playBox.jsx';
 import mqPlayerIcon from './mq-player.png';
 import styles from './index.css';
 
-export default class MqPlayerComponent extends React.Component{
-    constructor(props) {
-        super(props)
-        this.state = {showPlayBox: false}
+export default class MqPlayerComponent extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {showPlayBox: false};
     }
 
-    handOnClick(e) {
+    handOnClick (e) {
         this.setState({showPlayBox: true});
     }
 
-    render() {
+    render () {
         const {
             active,
             className,
