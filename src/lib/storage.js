@@ -1,6 +1,7 @@
 import ScratchStorage from 'scratch-storage';
 
 import defaultProjectAssets from './default-project';
+import config from '../config.js';
 
 const PROJECT_SERVER = 'https://projects.scratch.mit.edu';
 const ASSET_SERVER = 'https://cdn.assets.scratch.mit.edu';
@@ -10,15 +11,17 @@ const ASSET_SERVER = 'https://cdn.assets.scratch.mit.edu';
  * @todo make this more configurable
  */
 class Storage extends ScratchStorage {
-    constructor () {
+    constructor() {
         super();
         this.addWebSource(
             [this.AssetType.Project],
             projectAsset => {
-                const [projectId, revision] = projectAsset.assetId.split('.');
-                return revision ?
-                    `${PROJECT_SERVER}/internalapi/project/${projectId}/get/${revision}` :
-                    `${PROJECT_SERVER}/internalapi/project/${projectId}/get/`;
+                const id = window.location.hash.substring(1);
+                return `${config.services.lessonService}/${id}/project.json`;
+                // const [projectId, revision] = projectAsset.assetId.split('.');
+                // return revision ?
+                //     `${PROJECT_SERVER}/internalapi/project/${projectId}/get/${revision}` :
+                //     `${PROJECT_SERVER}/internalapi/project/${projectId}/get/`;
             }
         );
         this.addWebSource(

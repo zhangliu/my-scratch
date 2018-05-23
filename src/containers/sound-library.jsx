@@ -35,7 +35,7 @@ class SoundLibrary extends React.PureComponent {
     componentWillMount () {
         const id = window.location.hash.substring(1);
         if (!id) return this.setState({sounds: soundLibraryContent});
-        fetch(`${config.services.soundService}/${id}`)
+        fetch(`${config.services.lessonService}/${id}/sound.json`)
             .then(res => res.json())
             .then(content => {
                 this.setState({sounds: content});

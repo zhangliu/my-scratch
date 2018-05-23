@@ -52,7 +52,7 @@ export default class MyComponent extends React.Component {
     render () {
         const isOpen = this.state.isOpen;
         const id = window.location.hash.substring(1);
-        const url = id ? `${config.services.videoService}/${id}` : 'http://www.codingmarch.com/statics/video/trylesson.mp4';
+        const url = id ? `${config.services.lessonService}/${id}/video.mp4` : 'http://www.codingmarch.com/statics/video/trylesson.mp4';
         return (
             <div className={isOpen ? styles.mqModalOverlay : styles.mqModalOverlayHidden}>
                 <div className={styles.mqModalContent}>

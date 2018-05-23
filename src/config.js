@@ -1,11 +1,6 @@
 const config = {
     services: {
-        spritesService: '',
-        projectJSONService: '',
-        videoService: '',
-        backdropService: '',
-        costumeService: '',
-        soundService: ''
+        lessonService: 'http://www.codingmarch.com/lessons'
     }
 };
 export default config;

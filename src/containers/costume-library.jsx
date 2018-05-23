@@ -30,7 +30,7 @@ class CostumeLibrary extends React.PureComponent {
     componentWillMount () {
         const id = window.location.hash.substring(1);
         if (!id) return this.setState({costumes: costumeLibraryContent});
-        fetch(`${config.services.costumeService}/${id}`)
+        fetch(`${config.services.lessonService}/${id}/costume.json`)
             .then(res => res.json())
             .then(content => {
                 this.setState({costumes: content});

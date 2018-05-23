@@ -39,7 +39,7 @@ class SpriteLibrary extends React.PureComponent {
     componentWillMount () {
         const id = window.location.hash.substring(1);
         if (!id) return this.setState({sprites: spriteLibraryContent});
-        fetch(`${config.services.spritesService}/${id}`)
+        fetch(`${config.services.lessonService}/${id}/sprite.json`)
             .then(res => res.json())
             .then(content => {
                 this.setState({sprites: content});

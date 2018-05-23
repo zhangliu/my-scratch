@@ -30,7 +30,7 @@ class BackdropLibrary extends React.Component {
     componentWillMount () {
         const id = window.location.hash.substring(1);
         if (!id) return this.setState({backdrops: backdropLibraryContent});
-        fetch(`${config.services.backdropService}/${id}`)
+        fetch(`${config.services.lessonService}/${id}/backdrop.json`)
             .then(res => res.json())
             .then(content => {
                 this.setState({backdrops: content});
