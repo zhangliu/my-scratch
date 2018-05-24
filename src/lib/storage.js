@@ -11,7 +11,7 @@ const ASSET_SERVER = 'https://cdn.assets.scratch.mit.edu';
  * @todo make this more configurable
  */
 class Storage extends ScratchStorage {
-    constructor() {
+    constructor () {
         super();
         this.addWebSource(
             [this.AssetType.Project],
@@ -26,7 +26,8 @@ class Storage extends ScratchStorage {
         );
         this.addWebSource(
             [this.AssetType.ImageVector, this.AssetType.ImageBitmap, this.AssetType.Sound],
-            asset => `${ASSET_SERVER}/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
+            // asset => `${ASSET_SERVER}/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
+            asset => `${config.services.assertService}/${asset.assetId}.${asset.dataFormat}`
         );
         this.addWebSource(
             [this.AssetType.Sound],
