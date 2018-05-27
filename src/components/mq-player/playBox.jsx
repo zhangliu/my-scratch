@@ -30,7 +30,9 @@ export default class MyComponent extends React.Component {
     // destroy player on unmount
     componentWillUnmount () {
         if (this.player) {
-            this.player.dispose();
+            if (this.player && this.player.dispose) {
+                this.player.dispose();
+            }
         }
     }
 
