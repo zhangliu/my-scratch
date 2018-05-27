@@ -18,23 +18,26 @@ export default class MyComponent extends React.Component {
         this.state = {isOpen: true}; // props.showPlayBox }
     }
 
-    componentWillReceiveProps (props) {
-        if (props.isOpen) this.player.play();
-        this.setState({isOpen: props.isOpen});
-    }
-
     componentDidMount () {
-        this.player.play();
-    }
-
-    // destroy player on unmount
-    componentWillUnmount () {
-        if (this.player) {
-            if (this.player && this.player.dispose) {
-                this.player.dispose();
-            }
+        if (this.state.isOpen) {
+            this.player.play();
         }
     }
+
+    componentWillReceiveProps (props) {
+        if (props.isOpen) {
+            this.player.play();
+        }
+        this.setState({isOpen: props.isOpen});
+    }
+    // destroy player on unmount
+    // componentWillUnmount () {
+    //     if (this.player) {
+    //         if (this.player && this.player.dispose) {
+    //             this.player.dispose();
+    //         }
+    //     }
+    // }
 
     handVideoClick () {
         if (this.player.paused) return this.player.play();

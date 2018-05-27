@@ -120,14 +120,17 @@ const GUIComponent = props => {
                             selectedTabPanelClassName={tabClassNames.tabPanelSelected}
                             onSelect={onActivateTab}
                         >
-                            <TabList className={tabClassNames.tabList}>
+                            <TabList
+                                className={tabClassNames.tabList}
+                                style={{width: '500px'}}
+                            >
                                 <Tab className={tabClassNames.tab}>
                                     <img
                                         draggable={false}
                                         src={codeIcon}
                                     />
                                     <FormattedMessage
-                                        defaultMessage="Code"
+                                        defaultMessage="程序"
                                         description="Button to get to the code panel"
                                         id="gui.gui.codeTab"
                                     />
